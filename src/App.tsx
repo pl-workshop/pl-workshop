@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { generate } from "pegjs";
 
 function App() {
-  let [peg, setPeg] = useState("");
   let [input, setInput] = useState("");
   let [parser, setParser] = useState(generate('start = ""'));
   let [result, setResult] = useState("");
@@ -12,9 +11,7 @@ function App() {
       <Box>grammer</Box>
       <Textarea
         placeholder="peg.js"
-        value={peg}
         onChange={(e) => {
-          setPeg(e.target.value);
           setParser(generate(e.target.value));
         }}
       />
