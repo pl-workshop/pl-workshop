@@ -9,7 +9,12 @@ function App() {
   let [result, setResult] = useState("");
   let [javascriptCode, setJavascriptCode] = useState("");
   useEffect(() => {
-    Blockly.inject("blocklyDiv", { toolbox: toolbox });
+    //@ts-ignore
+    const workspace = Blockly.inject("blocklyDiv", { toolbox: toolbox });
+    workspace.addChangeListener(() => {
+      const code = Blockly.JavaScript.workspaceToCode(workspace);
+      setJavascriptCode(code);
+    });
   }, [toolbox]);
   return (
     <>
@@ -35,6 +40,7 @@ function App() {
       </Button>
       <Box>result: {result}</Box>
       <div id="blocklyDiv" style={{ height: "480px", width: "600px" }}></div>
+      <Box>code: {javascriptCode}</Box>
     </>
   );
 }
