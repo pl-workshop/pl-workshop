@@ -1,11 +1,16 @@
 import { Box, Button, Textarea } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { generate } from "pegjs";
+import Blockly from "blockly";
 
 function App() {
   let [input, setInput] = useState("");
   let [parser, setParser] = useState(generate('start = ""'));
   let [result, setResult] = useState("");
+  let [javascriptCode, setJavascriptCode] = useState("");
+  useEffect(() => {
+    Blockly.inject("blocklyDiv", { toolbox: toolbox });
+  }, [toolbox]);
   return (
     <>
       <Box>grammer</Box>
@@ -29,8 +34,43 @@ function App() {
         Parse!
       </Button>
       <Box>result: {result}</Box>
+      <div id="blocklyDiv" style={{ height: "480px", width: "600px" }}></div>
     </>
   );
 }
+
+const toolbox = {
+  kind: "flyoutToolbox",
+  contents: [
+    {
+      kind: "block",
+      type: "controls_if",
+    },
+    {
+      kind: "block",
+      type: "controls_repeat_ext",
+    },
+    {
+      kind: "block",
+      type: "logic_compare",
+    },
+    {
+      kind: "block",
+      type: "math_number",
+    },
+    {
+      kind: "block",
+      type: "math_arithmetic",
+    },
+    {
+      kind: "block",
+      type: "text",
+    },
+    {
+      kind: "block",
+      type: "text_print",
+    },
+  ],
+};
 
 export default App;
