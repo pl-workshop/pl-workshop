@@ -1,7 +1,11 @@
 import Blockly from "blockly";
 import { useEffect } from "react";
 
-export default function GrammerDefWorkspace(onWorkspaceChange: any) {
+export default function GrammerDefWorkspace({
+  onWorkspaceChange,
+}: {
+  onWorkspaceChange: any;
+}): JSX.Element {
   const xmlParser = new DOMParser();
   const xmlDom = xmlParser.parseFromString(xml, "text/xml");
   useEffect(() => {
@@ -9,7 +13,14 @@ export default function GrammerDefWorkspace(onWorkspaceChange: any) {
       //@ts-ignore
       toolbox: xmlDom.getElementById("toolbox"),
     });
-    workspace.addChangeListener(() => onWorkspaceChange(workspace));
+    workspace.addChangeListener(() => {
+      onWorkspaceChange(workspace);
+    });
+    return () => {
+      workspace.removeChangeListener(() => {
+        onWorkspaceChange(workspace);
+      });
+    };
   }, [xml]);
   return (
     <div id="blocklyDiv" style={{ height: "480px", width: "600px" }}></div>
