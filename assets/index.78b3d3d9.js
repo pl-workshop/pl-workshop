@@ -1472,7 +1472,7 @@ function `+_e.Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_+`(c1, c2, ratio) {
  * @license
  * Copyright 2019 Google LLC
  * SPDX-License-Identifier: Apache-2.0
- */return _})})(blockly$1);const Blockly=blockly$1.exports;function GrammerDefWorkspace(i){const _=new DOMParser().parseFromString(xml,"text/xml");return react.exports.useEffect(()=>{const _e=Blockly.inject("blocklyDiv",{toolbox:_.getElementById("toolbox")});_e.addChangeListener(()=>i(_e))},[xml]),jsx("div",{id:"blocklyDiv",style:{height:"480px",width:"600px"}})}const xml=`
+ */return _})})(blockly$1);const Blockly=blockly$1.exports;function GrammerDefWorkspace({onWorkspaceChange:i}){const _=new DOMParser().parseFromString(xml,"text/xml");return react.exports.useEffect(()=>{const _e=Blockly.inject("blocklyDiv",{toolbox:_.getElementById("toolbox")});return _e.addChangeListener(()=>{i(_e)}),()=>{_e.removeChangeListener(()=>{i(_e)})}},[xml]),jsx("div",{id:"blocklyDiv",style:{height:"480px",width:"600px"}})}const xml=`
     <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
     <category name="Logic" colour="#5b80a5">
     <block type="controls_if"/>
