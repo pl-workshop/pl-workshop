@@ -442,5 +442,10 @@ const xml = `
 </block>
 </category>
 <category name="変数" colour="#a55b80" custom="VARIABLE"/>
+<category name="文法定義" colour="#9fa55b">
+<block type="grammer_def">
+<field name="grammer_name" id="%Ckn-+7)ws94ZjiUZDyO">start</field>
+</block>
+</category>
 </xml>
 `;
