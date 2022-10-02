@@ -1584,4 +1584,4 @@ _ "whitespace"
     switch (ast.tag) {
         case "Number": return ast.value
     }
-}`;function ast2tree(et){return typeof et=="number"||typeof et=="string"||typeof et=="boolean"?jsx(qe,{label:jsx("div",{children:et})}):jsx(qe,{label:jsx("div",{children:et.tag}),children:Object.keys(et).filter(tt=>tt!=="tag").map((tt,nt)=>jsx(qe,{label:jsx("div",{children:tt}),children:ast2tree(et[tt])},nt))})}client.createRoot(document.getElementById("root")).render(jsx(ChakraProvider,{children:jsx(App,{})}));
+}`;function ast2tree(et){return typeof et=="number"||typeof et=="string"||typeof et=="boolean"?jsx(qe,{label:jsx(Text,{children:et})}):et instanceof Array?jsx(Fragment,{children:et.map((tt,nt)=>jsx(qe,{label:jsx(Fragment,{children:ast2tree(tt)})},nt))}):jsx(qe,{label:jsx(Text,{color:"brown",children:et.tag}),children:Object.keys(et).filter(tt=>tt!=="tag").map((tt,nt)=>jsx(qe,{label:jsx(Text,{color:"green",children:tt}),children:ast2tree(et[tt])},nt))})}client.createRoot(document.getElementById("root")).render(jsx(ChakraProvider,{children:jsx(App,{})}));
