@@ -1,10 +1,20 @@
-import { Text, Box, Button, Textarea } from "@chakra-ui/react";
+import {
+  Text,
+  Box,
+  Button,
+  Textarea,
+  Flex,
+  Stack,
+  Center,
+  Divider,
+} from "@chakra-ui/react";
 import { useState } from "react";
 import { generate } from "pegjs";
 import { Tree, TreeNode } from "react-organizational-chart";
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-chrome";
+import ResultBox from "./assets/components/ResultBox";
 
 function App() {
   let [input, setInput] = useState("");
@@ -13,69 +23,115 @@ function App() {
   let [evalcode, setEvalcode] = useState(initial_evalcode);
   let [evalResult, setEvalResult] = useState("");
   return (
-    <>
-      <Box>grammer</Box>
-      <AceEditor
-        mode="javascript"
-        theme="chrome"
-        value={parserDef}
-        width="100%"
-        minLines={10}
-        maxLines={50}
-        readOnly={false}
-        fontSize={16}
-        enableBasicAutocompletion={true}
-        onChange={(s) => {
-          setParserDef(s);
-        }}
-      />
-      <Box>input</Box>
-      <Textarea
-        placeholder="peg.js"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-      />
-      <Button
-        colorScheme="green"
-        onClick={() => {
-          try {
-            const parser = generate(parserDef + integer_whitespace_definition);
-            setResult(parser.parse(input));
-          } catch (e) {
-            alert(e);
-          }
-        }}
-      >
-        Parse!
-      </Button>
-      <Box>result: {JSON.stringify(result)}</Box>
-      <Box>tree</Box>
-      {result && <Tree label={<div>Root</div>}>{ast2tree(result)}</Tree>}
-      <Box>eval</Box>
-      <AceEditor
-        mode="javascript"
-        theme="chrome"
-        value={evalcode}
-        width="100%"
-        minLines={10}
-        maxLines={50}
-        readOnly={false}
-        fontSize={16}
-        enableBasicAutocompletion={true}
-        onChange={(s) => {
-          setEvalcode(s);
-        }}
-      />
-      <Button
-        colorScheme="green"
-        onClick={() => {
-          setEvalResult(Function(evalcode + `;return eval;`)()(result));
-        }}
-      >
-        eval!
-      </Button>
-      <Box>eval result: {evalResult}</Box>
-    </>
+    <Stack h="100vh">
+      <Flex h="full" gap={4} paddingX={4} paddingY={2}>
+        <Stack spacing={8} width="full" height="full">
+          <Stack spacing={2}>
+            <Text fontSize="3xl" color="blackAlpha.900">
+              文法定義部
+            </Text>
+            <AceEditor
+              mode="javascript"
+              theme="chrome"
+              value={parserDef}
+              width="100%"
+              minLines={20}
+              maxLines={20}
+              readOnly={false}
+              fontSize={16}
+              enableBasicAutocompletion={true}
+              onChange={(s) => {
+                setParserDef(s);
+              }}
+            />
+          </Stack>
+          <Stack spacing={2} h="full">
+            <Text fontSize="3xl" color="blackAlpha.900">
+              入力
+            </Text>
+            <Textarea
+              h="full"
+              maxH={200}
+              placeholder="peg.js"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+            />
+            <Button
+              colorScheme="green"
+              w={20}
+              minH={10}
+              onClick={() => {
+                try {
+                  const parser = generate(
+                    parserDef + integer_whitespace_definition
+                  );
+                  setResult(parser.parse(input));
+                } catch (e) {
+                  alert(e);
+                }
+              }}
+            >
+              Parse!
+            </Button>
+          </Stack>
+        </Stack>
+        <Stack width="full" h="full">
+          <ResultBox label="構文解析の結果">{JSON.stringify(result)}</ResultBox>
+          <Box>
+            <Text
+              fontSize="2xl"
+              paddingX={2}
+              paddingY={1}
+              borderTop="1px"
+              borderX="1px"
+              borderColor="green"
+            >
+              AST Viewer
+            </Text>
+            <Box padding={2} border="1px" borderColor="green" minH={300}>
+              {result && (
+                <Tree label={<div>Root</div>}>{ast2tree(result)}</Tree>
+              )}
+            </Box>
+          </Box>
+        </Stack>
+      </Flex>
+      <Divider />
+      <Flex gap={4} paddingX={4} paddingBottom={4}>
+        <Stack spacing={2} width="full">
+          <Text fontSize="3xl" color="blackAlpha.900">
+            評価部
+          </Text>
+          <AceEditor
+            mode="javascript"
+            theme="chrome"
+            value={evalcode}
+            width="100%"
+            minLines={16}
+            maxLines={16}
+            readOnly={false}
+            fontSize={16}
+            enableBasicAutocompletion={true}
+            onChange={(s) => {
+              setEvalcode(s);
+            }}
+          />
+          <Button
+            w={20}
+            h={10}
+            colorScheme="green"
+            onClick={() => {
+              setEvalResult(Function(evalcode + `;return eval;`)()(result));
+            }}
+          >
+            Eval!
+          </Button>
+        </Stack>
+        <Stack width="full">
+          <ResultBox label="評価結果">{evalResult}</ResultBox>
+        </Stack>
+      </Flex>
+    </Stack>
   );
 }
 
