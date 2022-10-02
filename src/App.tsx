@@ -1,4 +1,4 @@
-import { Box, Button, Textarea } from "@chakra-ui/react";
+import { Text, Box, Button, Textarea } from "@chakra-ui/react";
 import { useState } from "react";
 import { generate } from "pegjs";
 import { Tree, TreeNode } from "react-organizational-chart";
@@ -102,7 +102,12 @@ const initial_evalcode = `const eval = (ast) => {
     }
 }`;
 
-type AST = { tag: string; [key: string]: AST } | number | string | boolean;
+type AST =
+  | { tag: string; [key: string]: AST }
+  | number
+  | string
+  | boolean
+  | AST[];
 
 function ast2tree(ast: AST) {
   if (
@@ -110,14 +115,22 @@ function ast2tree(ast: AST) {
     typeof ast === "string" ||
     typeof ast === "boolean"
   ) {
-    return <TreeNode label={<div>{ast}</div>} />;
+    return <TreeNode label={<Text>{ast}</Text>} />;
+  } else if (ast instanceof Array) {
+    return (
+      <>
+        {ast.map((x, index) => (
+          <TreeNode key={index} label={<>{ast2tree(x)}</>} />
+        ))}
+      </>
+    );
   } else {
     return (
-      <TreeNode label={<div>{ast.tag}</div>}>
+      <TreeNode label={<Text color="brown">{ast.tag}</Text>}>
         {Object.keys(ast)
           .filter((key: string) => key !== "tag")
           .map((key: string, index) => (
-            <TreeNode key={index} label={<div>{key}</div>}>
+            <TreeNode key={index} label={<Text color="green">{key}</Text>}>
               {ast2tree(ast[key])}
             </TreeNode>
           ))}
