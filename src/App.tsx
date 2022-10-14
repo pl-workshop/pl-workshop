@@ -128,7 +128,7 @@ function App() {
           </Button>
         </Stack>
         <Stack width="full">
-          <ResultBox label="評価結果">{evalResult}</ResultBox>
+          <ResultBox label="評価結果">{evalResult.toString()}</ResultBox>
         </Stack>
       </Flex>
     </Stack>
