@@ -16,7 +16,14 @@ export default function ResultBox({ label, children }: Props) {
       >
         {label}
       </Text>
-      <Text padding={2} fontSize="lg" border="1px" minH={50}>
+      <Text
+        padding={2}
+        fontSize="lg"
+        border="1px"
+        minH={50}
+        maxH={100}
+        overflow="scroll"
+      >
         {children}
       </Text>
     </Box>
