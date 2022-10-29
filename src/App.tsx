@@ -45,7 +45,7 @@ function App() {
               }}
             />
           </Stack>
-          <Stack spacing={2} h="full">
+          <Stack spacing={2} width="full" h="full">
             <Text fontSize="3xl" color="blackAlpha.900">
               入力
             </Text>
@@ -75,7 +75,7 @@ function App() {
             </Button>
           </Stack>
         </Stack>
-        <Stack width="full" h="full">
+        <Stack maxW="50%" width="full" h="full">
           <ResultBox label="構文解析の結果">{JSON.stringify(result)}</ResultBox>
           <Box>
             <Text
@@ -88,7 +88,14 @@ function App() {
             >
               AST Viewer
             </Text>
-            <Box padding={2} border="1px" borderColor="green" minH={300}>
+            <Box
+              overflow="scroll"
+              padding={2}
+              border="1px"
+              borderColor="green"
+              minH={300}
+              maxH={450}
+            >
               {result && (
                 <Tree label={<div>Root</div>}>{ast2tree(result)}</Tree>
               )}
