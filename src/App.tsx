@@ -44,17 +44,17 @@ function App() {
             setParserDef(s);
             }}
             />
-                </Stack>
-                <Stack spacing={2} h="full">
-                <Text fontSize="3xl" color="blackAlpha.900">
-                入力
-                </Text>
-                <Textarea
-                h="full"
-                maxH={200}
-            placeholder="peg.js"
-                value={input}
-            onChange={(e) => setInput(e.target.value)}
+          </Stack>
+          <Stack spacing={2} width="full" h="full">
+            <Text fontSize="3xl" color="blackAlpha.900">
+              入力
+            </Text>
+            <Textarea
+              h="full"
+              maxH={200}
+              placeholder="peg.js"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
             />
                 <Button
                 colorScheme="green"
@@ -69,29 +69,36 @@ function App() {
                 } catch (e) {
                     alert(e);
                 }
-            }}
+              }}
             >
-                Parse!
-                </Button>
-                </Stack>
-                </Stack>
-                <Stack width="full" h="full">
-                <ResultBox label="構文解析の結果">{JSON.stringify(result)}</ResultBox>
-                <Box>
-                <Text
-                fontSize="2xl"
-                paddingX={2}
-            paddingY={1}
-            borderTop="1px"
-                borderX="1px"
-                borderColor="green"
-                >
-                AST Viewer
-                </Text>
-                <Box padding={2} border="1px" borderColor="green" minH={300}>
-                {result && (
-                        <Tree label={<div>Root</div>}>{ast2tree(result)}</Tree>
-                        )}
+              Parse!
+            </Button>
+          </Stack>
+        </Stack>
+        <Stack maxW="50%" width="full" h="full">
+          <ResultBox label="構文解析の結果">{JSON.stringify(result)}</ResultBox>
+          <Box>
+            <Text
+              fontSize="2xl"
+              paddingX={2}
+              paddingY={1}
+              borderTop="1px"
+              borderX="1px"
+              borderColor="green"
+            >
+              AST Viewer
+            </Text>
+            <Box
+              overflow="scroll"
+              padding={2}
+              border="1px"
+              borderColor="green"
+              minH={300}
+              maxH={450}
+            >
+              {result && (
+                <Tree label={<div>Root</div>}>{ast2tree(result)}</Tree>
+              )}
             </Box>
                 </Box>
                 </Stack>
