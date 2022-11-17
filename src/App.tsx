@@ -94,7 +94,7 @@ function App() {
               border="1px"
               borderColor="green"
               minH={300}
-              maxH={450}
+              maxH={375}
             >
               {result && (
                 <Tree label={<div>Root</div>}>{ast2tree(result)}</Tree>
