@@ -6,7 +6,7 @@ type Props = {
 };
 export default function ResultBox({ label, children }: Props) {
   return (
-    <Box>
+    <Box maxH="30%">
       <Text
         paddingX={2}
         paddingY={1}
