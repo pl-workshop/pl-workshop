@@ -24,8 +24,8 @@ function App() {
     let [evalResult, setEvalResult] = useState("");
     return (
         <Stack h="100vh">
-            <Flex h="full" gap={4} paddingX={4} paddingY={2}>
-                <Stack spacing={8} width="full" height="full">
+            <Flex h="70vh" gap={4} paddingX={4} paddingY={2}>
+                <Flex flexFlow="column" width="full" height="full">
                     <Stack spacing={2}>
                         <Text fontSize="3xl" color="blackAlpha.900">
                             文法定義部
@@ -74,10 +74,11 @@ function App() {
                             Parse!
                         </Button>
                     </Stack>
-                </Stack>
-                <Stack maxW="50%" width="full" h="full">
+                </Flex>
+                <Flex flexFlow="column" maxW="50%" width="full" maxH="70vh">
                     <ResultBox label="構文解析の結果">{JSON.stringify(result)}</ResultBox>
-                    <Box maxH="70%">
+                    <br />
+                    <Flex maxH="50vh" flexFlow="column">
                         <Text
                             fontSize="2xl"
                             paddingX={2}
@@ -94,14 +95,13 @@ function App() {
                             border="1px"
                             borderColor="green"
                             minH={300}
-                            maxH={375}
                         >
                             {result && (
                                 <Tree label={<div>Root</div>}>{ast2tree(result)}</Tree>
                             )}
                         </Box>
-                    </Box>
-                </Stack>
+                    </Flex>
+                </Flex>
             </Flex>
             <Divider />
             <Flex gap={4} paddingX={4} paddingBottom={4}>
