@@ -23,8 +23,8 @@ function App() {
     let [evalcode, setEvalcode] = useState(initial_evalcode);
     let [evalResult, setEvalResult] = useState("");
     return (
-        <Stack h="100vh">
-            <Flex h="70vh" gap={4} paddingX={4} paddingY={2}>
+        <Stack>
+            <Flex gap={4} paddingX={4} paddingY={2}>
                 <Flex flexFlow="column" width="full" height="full">
                     <Stack spacing={2}>
                         <Text fontSize="3xl" color="blackAlpha.900">
