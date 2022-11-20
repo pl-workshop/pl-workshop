@@ -193,15 +193,18 @@ function ast2tree(ast: AST) {
         );
     } else {
         return (
-            <TreeNode label={<Text color="brown">{ast.tag}</Text>}>
-                {Object.keys(ast)
-                    .filter((key: string) => key !== "tag")
-                    .map((key: string, index) => (
-                        <TreeNode key={index} label={<Text color="green">{key}</Text>}>
-                            {ast2tree(ast[key])}
-                        </TreeNode>
-                    ))}
-            </TreeNode>
+            ast.tag ?
+                (
+                    <TreeNode label={<Text color="brown">{ast.tag}</Text>}>
+                        {Object.keys(ast)
+                            .filter((key: string) => key !== "tag")
+                            .map((key: string, index) => (
+                                <TreeNode key={index} label={<Text color="green">{key}</Text>}>
+                                    {ast2tree(ast[key])}
+                                </TreeNode>
+                            ))}
+                    </TreeNode>
+                ) : <TreeNode label={<Text color="red">ast.tag is required!!! </Text>}></TreeNode>
         );
     }
 }
