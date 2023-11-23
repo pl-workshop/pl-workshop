@@ -17,10 +17,10 @@ import "ace-builds/src-noconflict/theme-chrome";
 import ResultBox from "./assets/components/ResultBox";
 
 function App() {
-    let [input, setInput] = useState("");
-    let [parserDef, setParserDef] = useState(initial_definition);
+    let [input, setInput] = useState(localStorage.getItem("input") || "");
+    let [parserDef, setParserDef] = useState(localStorage.getItem("parserDef") || initial_definition);
     let [result, setResult] = useState();
-    let [evalcode, setEvalcode] = useState(initial_evalcode);
+    let [evalcode, setEvalcode] = useState(localStorage.getItem("evalcode") || initial_evalcode);
     let [evalResult, setEvalResult] = useState("");
     return (
         <Stack>
@@ -42,6 +42,7 @@ function App() {
                             enableBasicAutocompletion={true}
                             onChange={(s) => {
                                 setParserDef(s);
+                                localStorage.setItem("parserDef", s);
                             }}
                         />
                     </Stack>
@@ -54,8 +55,11 @@ function App() {
                             maxH={200}
                             placeholder="peg.js"
                             value={input}
-                            onChange={(e) => setInput(e.target.value)}
-                        />
+                            onChange={(e) => {
+                                setInput(e.target.value);
+                                localStorage.setItem("input", e.target.value);
+                            }}
+                        />  
                         <Button
                             colorScheme="green"
                             w={20}
@@ -121,6 +125,7 @@ function App() {
                         enableBasicAutocompletion={true}
                         onChange={(s) => {
                             setEvalcode(s);
+                            localStorage.setItem("evalcode", s);
                         }}
                     />
                     <Button
